@@ -1,5 +1,5 @@
-name: 'Amazon CodeArtifact "Login" Action for GitHub Actions'
-description: 'Logs in the CodeArtifact for NPM(YARN) and Maven(Gradle)'
+name: 'Amazon CodeArtifact Auth'
+description: 'Logs in the CodeArtifact for NPM(YARN) and Maven(Gradle). Only for D-SHARE Inc.'
 branding:
   icon: 'cloud'
   color: 'orange'
@@ -18,7 +18,7 @@ inputs:
     description: 'Session duration'
     required: false
   type:
-    description: 'CodeArtifact Repository Type'
+    description: 'CodeArtifact Repository Type. npm or gradle'
     required: true
   repo:
     description: 'CodeArtifact Repository Name'
