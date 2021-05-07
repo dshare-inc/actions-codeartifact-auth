@@ -1,0 +1,32 @@
+name: 'Amazon CodeArtifact "Login" Action for GitHub Actions'
+description: 'Logs in the CodeArtifact for NPM(YARN) and Maven(Gradle)'
+branding:
+  icon: 'cloud'
+  color: 'orange'
+inputs:
+  region:
+    description: 'AWS CodeArtifact Region'
+    required: true
+  domain:
+    description: 'AWS CodeArtifact Domain Name'
+    required: true
+  owner:
+    description: 'AWS CodeArtifact Owner Account Id'
+    required: true
+  duration:
+    default: '900'
+    description: 'Session duration'
+    required: false
+  type:
+    description: 'CodeArtifact Repository Type'
+    required: true
+  repo:
+    description: 'CodeArtifact Repository Name'
+    required: true
+outputs:
+  registry:
+    description: 'The URI of the CodeArtifact'
+runs:
+  using: 'node12'
+  main: 'dist/action/index.js'
+  post: 'dist/cleanup/index.js'
