@@ -2645,7 +2645,8 @@ registry=https://${domain}-${owner}.d.codeartifact.${region}.amazonaws.com/npm/$
 //${domain}-${owner}.d.codeartifact.${region}.amazonaws.com/npm/${repo}/:_authToken=${authToken}
 //${domain}-${owner}.d.codeartifact.${region}.amazonaws.com/npm/${repo}/:always-auth=true
 `;
-  fs.writeFile(`${process.env.HOME}/.npmrc`, file, { flag: 'wx' }, (callback) => {
+  io.rmRF('.npmrc');
+  fs.writeFile(`.npmrc`, file, { flag: 'wx' }, (callback) => {
     if (callback) core.setFailed(callback);
   });
 }
@@ -2654,10 +2655,7 @@ async function gradle(domain, owner, region, repo, authToken) {
   const file = `
 codeartifactToken=${authToken}
 `
-  await io.mkdirP(`${process.env.HOME}/.gradle`);
-  fs.writeFile(`${process.env.HOME}/.gradle/gradle.properties`, file, { flag: 'wx' }, (c) => {
-    if (c) core.setFailed(c);
-  });
+  io.rmRF('gradle.properties');
   fs.writeFile(`gradle.properties`, file, { flag: 'wx' }, (c) => {
     if (c) core.setFailed(c);
   });

@@ -1059,9 +1059,8 @@ const exec = __webpack_require__(986);
 const io = __webpack_require__(1);
 
 async function cleanup() {
-  await io.rmRF('~/.npmrc');
-  await io.rmRF('~/.gradle/gradle.properties');
-  await io.rmRF('./gradle.properties');
+  await io.rmRF('.npmrc');
+  await io.rmRF('gradle.properties');
 }
 
 module.exports = cleanup;
