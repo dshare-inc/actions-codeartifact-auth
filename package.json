@@ -1,21 +1,20 @@
 {
   "name": "actions-codeartifact",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "package": "ncc build index.js -o dist/action && ncc build cleanup.js -o dist/cleanup"
   },
   "dependencies": {
-    "@actions/core": "^1.2.7",
-    "@actions/exec": "^1.0.4",
-    "@actions/io": "^1.1.0",
-    "@aws-sdk/client-codeartifact": "^3.14.0",
-    "aws-sdk": "^2.902.0",
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.0",
+    "@actions/io": "^1.1.1",
+    "@aws-sdk/client-codeartifact": "^3.45.0",
     "fs": "^0.0.1-security",
-    "node": "^16.1.0"
+    "node": "^17.3.0"
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.3"
+    "@vercel/ncc": "^0.33.1"
   }
 }

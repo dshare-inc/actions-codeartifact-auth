@@ -5,6 +5,7 @@ const io = require('@actions/io');
 async function cleanup() {
   await io.rmRF('.npmrc');
   await io.rmRF('gradle.properties');
+  await io.rmRF('pypirc');
 }
 
 module.exports = cleanup;

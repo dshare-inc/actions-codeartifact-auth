@@ -8,9 +8,9 @@ async function run() {
   const region = core.getInput('region', { required: true });
   const domain = core.getInput('domain', { required: true });
   const owner = core.getInput('owner', { required: true });
-  const duration = core.getInput('duration', { required: false });
   const type = core.getInput('type', { required: true });
   const repo = core.getInput('repo', { required: true });
+  const duration = core.getInput('duration', { required: false });
 
   const client = new codeArtifact.CodeartifactClient({ region: region });
   const authCommand = new codeArtifact.GetAuthorizationTokenCommand({
@@ -29,10 +29,13 @@ async function run() {
 
   switch(type) {
     case 'gradle':
-      gradle(domain, owner, region, repo, authToken);
+      await gradle(domain, owner, region, repo, authToken);
       break;
     case 'npm':
       await npm(domain, owner, region, repo, authToken);
+      break;
+    case 'twine':
+      await twine(domain, owner, region, repo, authToken);
       break;
   }
 
@@ -57,8 +60,23 @@ async function gradle(domain, owner, region, repo, authToken) {
 codeartifactToken=${authToken}
 `
   io.rmRF('gradle.properties');
-  fs.writeFile(`gradle.properties`, file, { flag: 'wx' }, (c) => {
-    if (c) core.setFailed(c);
+  fs.writeFile(`gradle.properties`, file, { flag: 'wx' }, (callback) => {
+    if (callback) core.setFailed(callback);
+  });
+}
+
+async function twine(domain, owner, region, repo, authToken) {
+  const file = `
+[distutils]
+index-servers = codeartifact
+[codeartifact]
+repository = https://${domain}-${owner}.d.codeartifact.${region}.amazonaws.com/pypi/${repo}/
+password = ${authToken}
+username = aws
+`;
+  io.rmRF('.pypirc');
+  fs.writeFile(`.pypirc`, file, { flag: 'wx' }, (callback) => {
+    if (callback) core.setFailed(callback);
   });
 }
 
